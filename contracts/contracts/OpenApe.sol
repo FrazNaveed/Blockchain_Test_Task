@@ -658,8 +658,17 @@ abstract contract ERC721URIStorage is ERC721 {
     /**
      * @dev See {IERC721Metadata-tokenURI}.
      */
-    function tokenURI(uint256 tokenId) public view virtual override returns (string memory) {
-        require(_exists(tokenId), "ERC721URIStorage: URI query for nonexistent token");
+    function tokenURI(uint256 tokenId)
+        public
+        view
+        virtual
+        override
+        returns (string memory)
+    {
+        require(
+            _exists(tokenId),
+            "ERC721URIStorage: URI query for nonexistent token"
+        );
 
         string memory _tokenURI = _tokenURIs[tokenId];
         string memory base = _baseURI();
@@ -683,8 +692,14 @@ abstract contract ERC721URIStorage is ERC721 {
      *
      * - `tokenId` must exist.
      */
-    function _setTokenURI(uint256 tokenId, string memory _tokenURI) internal virtual {
-        require(_exists(tokenId), "ERC721URIStorage: URI set of nonexistent token");
+    function _setTokenURI(uint256 tokenId, string memory _tokenURI)
+        internal
+        virtual
+    {
+        require(
+            _exists(tokenId),
+            "ERC721URIStorage: URI set of nonexistent token"
+        );
         _tokenURIs[tokenId] = _tokenURI;
     }
 
@@ -740,44 +755,35 @@ library Counters {
 
 contract OpenApeNFT is ERC721URIStorage {
     using Counters for Counters.Counter;
-    Counters.Counter private _tokenIdCounter;      
+    Counters.Counter private _tokenIdCounter;
     address public smartContract;
     mapping(address => bool) public ownNFT;
 
-    constructor(address _smartContract)
-        ERC721("OPEN APE", "OPENAPE")
-    {
+    constructor(address _smartContract) ERC721("OPEN APE", "OPENAPE") {
         smartContract = _smartContract;
         _tokenIdCounter.increment();
     }
 
-    modifier onlyContract{
+    modifier onlyContract() {
         require(msg.sender == smartContract, "Access forbidden");
         _;
     }
-    function mintNFT(address _to,
-        string memory _URI)
-    public
-    onlyContract
-    returns(string memory)
+
+    /// Only the specified smart contract can interact with this function
+
+    function mintNFT(address _to, string memory _URI)
+        public
+        onlyContract
+        returns (string memory)
     {
         _mint(_to, _tokenIdCounter.current());
-        _setTokenURI(_tokenIdCounter.current(),_URI);
+        _setTokenURI(_tokenIdCounter.current(), _URI);
         ownNFT[_to] = true;
         _tokenIdCounter.increment();
         return "minted";
-    } 
+    }
 
-    function addrExist(
-        address _to
-    )
-    public
-    view
-    returns(bool)
-    {
+    function addrExist(address _to) public view returns (bool) {
         return ownNFT[_to];
     }
 }
-
-
-
