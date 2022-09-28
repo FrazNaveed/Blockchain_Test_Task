@@ -14,12 +14,11 @@
 
 ## Installation
 
-* Install Metamask from [here][https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en]
+* Install Metamask from [here](https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=en)
 
 * Clone the repo & run the command:
 ```
 npm install
-
 ```
 
 ## Running
@@ -28,7 +27,6 @@ Run the React application using the command:
 
 ```
 npm start
-
 ```
 
 
