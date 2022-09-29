@@ -10,7 +10,7 @@
 
 * Chrome Browser
 * Metamask Wallet
-* Installing React.js node_modules
+* tBNB in wallet
 
 ## Installation
 
